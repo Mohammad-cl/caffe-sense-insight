@@ -46,7 +46,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Dashboard | CaffeSense</title>
+        <title>Dashboard | Diners</title>
       </Helmet>
       
       <main className="p-6">

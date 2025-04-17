@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -15,7 +14,7 @@ export default function Admin() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Admin | CaffeSense</title>
+        <title>Admin | Diners</title>
       </Helmet>
       
       <main className="container px-4 py-8">
@@ -102,26 +101,24 @@ export default function Admin() {
         <Card>
           <CardHeader>
             <CardTitle>System Information</CardTitle>
-            <CardDescription>CaffeSense monitoring system details</CardDescription>
+            <CardDescription>Diners monitoring system details</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-1">Version</h3>
-                <p>CaffeSense v1.0.0</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-1">Last Maintenance</h3>
-                <p>April 15, 2025</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-1">Data Retention</h3>
-                <p>30 days</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-1">Next Backup</h3>
-                <p>April 18, 2025</p>
-              </div>
+            <div>
+              <h3 className="text-sm font-medium text-muted-foreground mb-1">Version</h3>
+              <p>Diners v1.0.0</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-muted-foreground mb-1">Last Maintenance</h3>
+              <p>April 15, 2025</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-muted-foreground mb-1">Data Retention</h3>
+              <p>30 days</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-muted-foreground mb-1">Next Backup</h3>
+              <p>April 18, 2025</p>
             </div>
           </CardContent>
         </Card>

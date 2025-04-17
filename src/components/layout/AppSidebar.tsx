@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -54,7 +53,6 @@ export function AppSidebar() {
   const { pathname } = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  // Handle mobile sidebar collapse
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 768;
@@ -63,21 +61,19 @@ export function AppSidebar() {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initial check
-    
+    handleResize();
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  // Auto-collapse on mobile when navigating
   useEffect(() => {
     if (isMobile) setExpanded(false);
   }, [pathname, isMobile]);
 
   return (
     <>
-      {/* Overlay for mobile */}
       {isMobile && expanded && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-30"
@@ -85,7 +81,6 @@ export function AppSidebar() {
         />
       )}
 
-      {/* Toggle button */}
       <Button
         variant="ghost"
         size="icon"
@@ -96,7 +91,6 @@ export function AppSidebar() {
         <span className="sr-only">Toggle sidebar</span>
       </Button>
 
-      {/* Sidebar */}
       <div 
         className={cn(
           "fixed top-0 left-0 z-40 h-full bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out",
@@ -105,12 +99,11 @@ export function AppSidebar() {
         )}
       >
         <div className="flex h-full flex-col p-3 gap-2">
-          {/* Logo and toggle */}
           <div className="flex items-center justify-between py-2 h-16">
             <div className="flex items-center gap-3 px-2">
               <Coffee className={cn("h-8 w-8 text-caffe-500", !expanded && "mx-auto")} />
               {expanded && (
-                <span className="text-xl font-semibold">CaffeSense</span>
+                <span className="text-xl font-semibold">Diners</span>
               )}
             </div>
             {!isMobile && (
@@ -127,7 +120,6 @@ export function AppSidebar() {
 
           <Separator />
 
-          {/* Navigation */}
           <div className="flex-1 py-4">
             <nav className="flex flex-col gap-1">
               {navItems.map((item) => (
@@ -149,7 +141,6 @@ export function AppSidebar() {
             </nav>
           </div>
 
-          {/* Bottom section */}
           <div className="flex flex-col gap-2 py-2">
             <Separator />
             <div className={cn("flex items-center", expanded ? "justify-between" : "justify-center")}>
@@ -172,7 +163,6 @@ export function AppSidebar() {
         </div>
       </div>
 
-      {/* Content wrapper to add padding */}
       <div 
         className={cn(
           "transition-all duration-300 ease-in-out",

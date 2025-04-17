@@ -41,7 +41,7 @@ export default function Login() {
           <div className="h-12 w-12 rounded-full bg-caffe-200 dark:bg-caffe-700 flex items-center justify-center mb-4">
             <Coffee className="h-6 w-6 text-caffe-600 dark:text-caffe-200" />
           </div>
-          <CardTitle className="text-2xl font-bold text-center">CaffeSense</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Diners</CardTitle>
           <CardDescription className="text-center">
             Enter your credentials to access the monitoring system
           </CardDescription>

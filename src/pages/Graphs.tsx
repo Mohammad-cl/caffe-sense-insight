@@ -41,7 +41,7 @@ export default function Graphs() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Historical Data | CaffeSense</title>
+        <title>Historical Data | Diners</title>
       </Helmet>
       
       <main className="container px-4 py-8">
