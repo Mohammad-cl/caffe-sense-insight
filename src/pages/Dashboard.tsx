@@ -49,7 +49,7 @@ export default function Dashboard() {
         <title>Dashboard | CaffeSense</title>
       </Helmet>
       
-      <main className="container px-4 py-8">
+      <main className="p-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <ThemeToggle />

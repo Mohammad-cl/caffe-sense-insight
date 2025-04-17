@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -58,40 +59,44 @@ const App = () => {
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              {isAuthenticated && <AppSidebar />}
-              <Routes>
-                {/* Public routes */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                
-                {/* Protected routes */}
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } />
-                <Route path="/graphs" element={
-                  <ProtectedRoute>
-                    <Graphs />
-                  </ProtectedRoute>
-                } />
-                <Route path="/admin" element={
-                  <ProtectedRoute>
-                    <Admin />
-                  </ProtectedRoute>
-                } />
-                <Route path="/customers" element={
-                  <ProtectedRoute>
-                    <Customers />
-                  </ProtectedRoute>
-                } />
-                <Route path="/settings" element={
-                  <ProtectedRoute>
-                    <Settings />
-                  </ProtectedRoute>
-                } />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <div className="flex min-h-screen">
+                {isAuthenticated && <AppSidebar />}
+                <div className="flex-1 w-full">
+                  <Routes>
+                    {/* Public routes */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                    
+                    {/* Protected routes */}
+                    <Route path="/dashboard" element={
+                      <ProtectedRoute>
+                        <Dashboard />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="/graphs" element={
+                      <ProtectedRoute>
+                        <Graphs />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="/admin" element={
+                      <ProtectedRoute>
+                        <Admin />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="/customers" element={
+                      <ProtectedRoute>
+                        <Customers />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="/settings" element={
+                      <ProtectedRoute>
+                        <Settings />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </div>
+              </div>
             </BrowserRouter>
           </TooltipProvider>
         </ThemeProvider>
