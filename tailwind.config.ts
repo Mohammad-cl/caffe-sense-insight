@@ -61,7 +61,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        caffe: {
+          100: '#F5F0E8',
+          200: '#E6D5C0',
+          300: '#C8A887',
+          400: '#A67C52',
+          500: '#7D5A3B',
+          600: '#5A3E28',
+          700: '#3B2918',
+          800: '#1E1409',
+          900: '#0F0A04',
+        },
+        sensor: {
+          temperature: '#FF6B6B',
+          humidity: '#4ECDC4',
+          gas: '#FFD166',
+          co: '#F86624',
+          noise: '#662E9B'
+        }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +102,22 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'pulse-ring': {
+          '0%': {
+            transform: 'scale(0.7)',
+            opacity: '0.3'
+          },
+          '100%': {
+            transform: 'scale(1)',
+            opacity: '0'
+          }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'pulse-ring': 'pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite'
 			}
 		}
 	},
