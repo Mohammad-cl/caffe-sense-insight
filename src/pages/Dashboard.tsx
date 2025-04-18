@@ -1,10 +1,11 @@
-
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { toast } from "sonner";
 import { SensorCard } from "@/components/sensors/SensorCard";
 import { PeopleCounter } from "@/components/sensors/PeopleCounter";
 import { RoomStatusCard } from "@/components/sensors/RoomStatusCard";
 import { sensorConfigs, generateCurrentRoomData, generatePeopleCount } from "@/utils/mockData";
+import { saveSensorData, savePeopleCount } from "@/utils/supabase";
 import { SensorData } from "@/types/sensors";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -26,12 +27,25 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  const updateData = () => {
-    const newZoneData = generateCurrentRoomData();
-    setZonesData(newZoneData);
-    
-    const peopleCountData = generatePeopleCount(1);
-    setPeopleCount(peopleCountData[0].count);
+  const updateData = async () => {
+    try {
+      const newZoneData = generateCurrentRoomData();
+      setZonesData(newZoneData);
+      
+      // Save each zone's data to Supabase
+      await Promise.all(newZoneData.map(data => saveSensorData(data)));
+      
+      const peopleCountData = generatePeopleCount(1);
+      const newPeopleCount = peopleCountData[0].count;
+      setPeopleCount(newPeopleCount);
+      
+      // Save people count to Supabase
+      await savePeopleCount(newPeopleCount);
+      
+    } catch (error) {
+      console.error('Error updating data:', error);
+      toast.error('Failed to save sensor data');
+    }
   };
 
   const getZoneData = (zoneName: string) => {
