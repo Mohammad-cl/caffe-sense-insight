@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { SensorCard } from "@/components/sensors/SensorCard";
@@ -7,41 +6,58 @@ import { RoomStatusCard } from "@/components/sensors/RoomStatusCard";
 import { sensorConfigs, generateCurrentRoomData, generatePeopleCount } from "@/utils/mockData";
 import { SensorData } from "@/types/sensors";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Button } from "@/components/ui/button";
+import { Maximize2, Minimize2 } from "lucide-react";
 
 export default function Dashboard() {
   const [zonesData, setZonesData] = useState<SensorData[]>([]);
   const [peopleCount, setPeopleCount] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const maxCapacity = 50;
 
-  // Simulate real-time data updates
   useEffect(() => {
-    // Initial data load
     updateData();
     
-    // Set up refresh interval
     const interval = setInterval(() => {
       updateData();
-    }, 10000); // Update every 10 seconds
+    }, 10000);
     
     return () => clearInterval(interval);
   }, []);
-  
+
   const updateData = () => {
     const newZoneData = generateCurrentRoomData();
     setZonesData(newZoneData);
     
-    // Update people count
     const peopleCountData = generatePeopleCount(1);
     setPeopleCount(peopleCountData[0].count);
   };
-  
-  // Get data for specific zone
+
   const getZoneData = (zoneName: string) => {
     return zonesData.find(data => data.location === zoneName);
   };
-  
+
   const zone1Data = getZoneData("Zone 1");
   const zone2Data = getZoneData("Zone 2");
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -52,7 +68,25 @@ export default function Dashboard() {
       <main className="p-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleFullscreen}
+              className="rounded-full w-10 h-10"
+              title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+            >
+              {isFullscreen ? (
+                <Minimize2 className="h-5 w-5" />
+              ) : (
+                <Maximize2 className="h-5 w-5" />
+              )}
+              <span className="sr-only">
+                {isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+              </span>
+            </Button>
+            <ThemeToggle />
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -89,4 +123,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
