@@ -61,76 +61,91 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div 
-      className="min-h-screen bg-background relative"
-      style={{
-        backgroundImage: 'url("/lovable-uploads/3cef4d3f-844d-4691-9461-ad1850e971f7.png")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
-    >
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-      <div className="relative z-10">
-        <Helmet>
-          <title>Dashboard | Diners</title>
-        </Helmet>
-        
-        <main className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={toggleFullscreen}
-                className="rounded-full w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm"
-                title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-              >
-                {isFullscreen ? (
-                  <Minimize2 className="h-5 w-5" />
-                ) : (
-                  <Maximize2 className="h-5 w-5" />
-                )}
-                <span className="sr-only">
-                  {isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-                </span>
-              </Button>
-              <ThemeToggle />
+    <div className="min-h-screen bg-background flex-1">
+      <div 
+        className="min-h-screen relative"
+        style={{
+          backgroundImage: 'url("/lovable-uploads/3cef4d3f-844d-4691-9461-ad1850e971f7.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+        <div className="relative z-10">
+          <Helmet>
+            <title>Dashboard | Diners</title>
+          </Helmet>
+          
+          <main className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleFullscreen}
+                  className="rounded-full w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm"
+                  title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+                >
+                  {isFullscreen ? (
+                    <Minimize2 className="h-5 w-5" />
+                  ) : (
+                    <Maximize2 className="h-5 w-5" />
+                  )}
+                  <span className="sr-only">
+                    {isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+                  </span>
+                </Button>
+                <ThemeToggle />
+              </div>
             </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <PeopleCounter count={peopleCount} maxCapacity={maxCapacity} />
             
-            {zone1Data && <RoomStatusCard data={zone1Data} />}
-            {zone2Data && <RoomStatusCard data={zone2Data} />}
-          </div>
-          
-          <h2 className="text-xl font-semibold mb-4 text-white">Zone 1 Sensors</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
-            {zone1Data && Object.entries(sensorConfigs).map(([key, config]) => (
-              <SensorCard 
-                key={key}
-                value={zone1Data[key as keyof SensorData] as number}
-                config={config}
-                location="Zone 1"
-              />
-            ))}
-          </div>
-          
-          <h2 className="text-xl font-semibold mb-4 text-white">Zone 2 Sensors</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            {zone2Data && Object.entries(sensorConfigs).map(([key, config]) => (
-              <SensorCard 
-                key={key}
-                value={zone2Data[key as keyof SensorData] as number}
-                config={config}
-                location="Zone 2"
-              />
-            ))}
-          </div>
-        </main>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20 p-4">
+                <PeopleCounter count={peopleCount} maxCapacity={maxCapacity} />
+              </div>
+              
+              {zone1Data && (
+                <div className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20 p-4">
+                  <RoomStatusCard data={zone1Data} />
+                </div>
+              )}
+              
+              {zone2Data && (
+                <div className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20 p-4">
+                  <RoomStatusCard data={zone2Data} />
+                </div>
+              )}
+            </div>
+            
+            <h2 className="text-xl font-semibold mb-4 text-white">Zone 1 Sensors</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+              {zone1Data && Object.entries(sensorConfigs).map(([key, config]) => (
+                <div key={key} className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
+                  <SensorCard 
+                    value={zone1Data[key as keyof SensorData] as number}
+                    config={config}
+                    location="Zone 1"
+                  />
+                </div>
+              ))}
+            </div>
+            
+            <h2 className="text-xl font-semibold mb-4 text-white">Zone 2 Sensors</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
+              {zone2Data && Object.entries(sensorConfigs).map(([key, config]) => (
+                <div key={key} className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
+                  <SensorCard 
+                    value={zone2Data[key as keyof SensorData] as number}
+                    config={config}
+                    location="Zone 2"
+                  />
+                </div>
+              ))}
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
