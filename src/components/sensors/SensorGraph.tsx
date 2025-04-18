@@ -14,26 +14,26 @@ import { SensorData, SensorType } from "@/types/sensors";
 import { sensorConfigs } from "@/utils/mockData";
 
 interface SensorGraphProps {
-  room1Data: SensorData[];
-  room2Data: SensorData[];
+  zone1Data: SensorData[];
+  zone2Data: SensorData[];
   sensorType: SensorType;
 }
 
-export function SensorGraph({ room1Data, room2Data, sensorType }: SensorGraphProps) {
+export function SensorGraph({ zone1Data, zone2Data, sensorType }: SensorGraphProps) {
   const sensorConfig = sensorConfigs[sensorType];
   
   // Format data for recharts
-  const chartData = room1Data.map((room1Item) => {
-    // Find matching timestamp in room2
-    const room2Item = room2Data.find(r2 => r2.timestamp === room1Item.timestamp) || {
+  const chartData = zone1Data.map((zone1Item) => {
+    // Find matching timestamp in zone2
+    const zone2Item = zone2Data.find(z2 => z2.timestamp === zone1Item.timestamp) || {
       [sensorType]: 0
     };
     
     return {
-      timestamp: room1Item.timestamp,
-      time: new Date(room1Item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      [`${sensorType}Room1`]: room1Item[sensorType],
-      [`${sensorType}Room2`]: room2Item[sensorType]
+      timestamp: zone1Item.timestamp,
+      time: new Date(zone1Item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      [`${sensorType}Zone1`]: zone1Item[sensorType],
+      [`${sensorType}Zone2`]: zone2Item[sensorType]
     };
   });
   
@@ -71,11 +71,11 @@ export function SensorGraph({ room1Data, room2Data, sensorType }: SensorGraphPro
                 formatter={(value: number) => [`${value.toFixed(1)} ${sensorConfig.thresholds.unit}`, '']}
                 labelFormatter={(label) => `Time: ${label}`}
               />
-              <Legend formatter={(value) => value.includes('Room1') ? 'Room 1' : 'Room 2'} />
+              <Legend formatter={(value) => value.includes('Zone1') ? 'Zone 1' : 'Zone 2'} />
               <Line
                 type="monotone"
-                dataKey={`${sensorType}Room1`}
-                name="Room 1"
+                dataKey={`${sensorType}Zone1`}
+                name="Zone 1"
                 stroke="#FF6B6B"
                 strokeWidth={2}
                 activeDot={{ r: 6 }}
@@ -83,8 +83,8 @@ export function SensorGraph({ room1Data, room2Data, sensorType }: SensorGraphPro
               />
               <Line
                 type="monotone"
-                dataKey={`${sensorType}Room2`}
-                name="Room 2"
+                dataKey={`${sensorType}Zone2`}
+                name="Zone 2"
                 stroke="#4ECDC4"
                 strokeWidth={2}
                 activeDot={{ r: 6 }}
@@ -97,3 +97,4 @@ export function SensorGraph({ room1Data, room2Data, sensorType }: SensorGraphPro
     </Card>
   );
 }
+

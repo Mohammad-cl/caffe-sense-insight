@@ -9,7 +9,7 @@ import { SensorData } from "@/types/sensors";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Dashboard() {
-  const [roomsData, setRoomsData] = useState<SensorData[]>([]);
+  const [zonesData, setZonesData] = useState<SensorData[]>([]);
   const [peopleCount, setPeopleCount] = useState(0);
   const maxCapacity = 50;
 
@@ -27,21 +27,21 @@ export default function Dashboard() {
   }, []);
   
   const updateData = () => {
-    const newRoomData = generateCurrentRoomData();
-    setRoomsData(newRoomData);
+    const newZoneData = generateCurrentRoomData();
+    setZonesData(newZoneData);
     
     // Update people count
     const peopleCountData = generatePeopleCount(1);
     setPeopleCount(peopleCountData[0].count);
   };
   
-  // Get data for specific room
-  const getRoomData = (roomName: string) => {
-    return roomsData.find(data => data.location === roomName);
+  // Get data for specific zone
+  const getZoneData = (zoneName: string) => {
+    return zonesData.find(data => data.location === zoneName);
   };
   
-  const room1Data = getRoomData("Room 1");
-  const room2Data = getRoomData("Room 2");
+  const zone1Data = getZoneData("Zone 1");
+  const zone2Data = getZoneData("Zone 2");
 
   return (
     <div className="min-h-screen bg-background">
@@ -58,30 +58,30 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <PeopleCounter count={peopleCount} maxCapacity={maxCapacity} />
           
-          {room1Data && <RoomStatusCard data={room1Data} />}
-          {room2Data && <RoomStatusCard data={room2Data} />}
+          {zone1Data && <RoomStatusCard data={zone1Data} />}
+          {zone2Data && <RoomStatusCard data={zone2Data} />}
         </div>
         
-        <h2 className="text-xl font-semibold mb-4">Room 1 Sensors</h2>
+        <h2 className="text-xl font-semibold mb-4">Zone 1 Sensors</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
-          {room1Data && Object.entries(sensorConfigs).map(([key, config]) => (
+          {zone1Data && Object.entries(sensorConfigs).map(([key, config]) => (
             <SensorCard 
               key={key}
-              value={room1Data[key as keyof SensorData] as number}
+              value={zone1Data[key as keyof SensorData] as number}
               config={config}
-              location="Room 1"
+              location="Zone 1"
             />
           ))}
         </div>
         
-        <h2 className="text-xl font-semibold mb-4">Room 2 Sensors</h2>
+        <h2 className="text-xl font-semibold mb-4">Zone 2 Sensors</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-          {room2Data && Object.entries(sensorConfigs).map(([key, config]) => (
+          {zone2Data && Object.entries(sensorConfigs).map(([key, config]) => (
             <SensorCard 
               key={key}
-              value={room2Data[key as keyof SensorData] as number}
+              value={zone2Data[key as keyof SensorData] as number}
               config={config}
-              location="Room 2"
+              location="Zone 2"
             />
           ))}
         </div>
@@ -89,3 +89,4 @@ export default function Dashboard() {
     </div>
   );
 }
+

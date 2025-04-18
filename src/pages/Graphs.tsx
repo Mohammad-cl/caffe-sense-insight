@@ -13,8 +13,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Graphs() {
-  const [roomData1, setRoomData1] = useState<SensorData[]>([]);
-  const [roomData2, setRoomData2] = useState<SensorData[]>([]);
+  const [zoneData1, setZoneData1] = useState<SensorData[]>([]);
+  const [zoneData2, setZoneData2] = useState<SensorData[]>([]);
   const [peopleCountData, setPeopleCountData] = useState<PeopleCount[]>([]);
   const [timeRange, setTimeRange] = useState<number>(12); // Default 12 hours
 
@@ -24,12 +24,12 @@ export default function Graphs() {
   }, [timeRange]);
   
   const loadHistoricalData = (hours: number) => {
-    const room1Data = generateHistoricalData("Room 1", hours);
-    const room2Data = generateHistoricalData("Room 2", hours);
+    const zone1Data = generateHistoricalData("Zone 1", hours);
+    const zone2Data = generateHistoricalData("Zone 2", hours);
     const peopleData = generatePeopleCount(hours);
     
-    setRoomData1(room1Data);
-    setRoomData2(room2Data);
+    setZoneData1(zone1Data);
+    setZoneData2(zone2Data);
     setPeopleCountData(peopleData);
   };
 
@@ -68,8 +68,8 @@ export default function Graphs() {
           {sensorTypes.map((type) => (
             <SensorGraph 
               key={type}
-              room1Data={roomData1} 
-              room2Data={roomData2}
+              zone1Data={zoneData1} 
+              zone2Data={zoneData2}
               sensorType={type}
             />
           ))}
@@ -78,3 +78,4 @@ export default function Graphs() {
     </div>
   );
 }
+

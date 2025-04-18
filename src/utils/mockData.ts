@@ -45,10 +45,10 @@ const generateRandomSensorData = (location: string, timestamp: number): SensorDa
     timestamp,
     temperature: (sensorConfigs.temperature.thresholds.min + 
       Math.random() * (sensorConfigs.temperature.thresholds.max - sensorConfigs.temperature.thresholds.min)) * 
-      (location === "Room 1" ? 1 : anomalyFactor),
+      (location === "Zone 1" ? 1 : anomalyFactor),
     humidity: (sensorConfigs.humidity.thresholds.min + 
       Math.random() * (sensorConfigs.humidity.thresholds.max - sensorConfigs.humidity.thresholds.min)) * 
-      (location === "Room 2" ? 1 : anomalyFactor),
+      (location === "Zone 2" ? 1 : anomalyFactor),
     gasLevel: Math.random() * sensorConfigs.gasLevel.thresholds.max * anomalyFactor,
     coLevel: Math.random() * sensorConfigs.coLevel.thresholds.max * anomalyFactor,
     noiseLevel: (sensorConfigs.noiseLevel.thresholds.min + 
@@ -58,7 +58,7 @@ const generateRandomSensorData = (location: string, timestamp: number): SensorDa
   };
 };
 
-// Generate historical data for a given room
+// Generate historical data for a given zone
 export const generateHistoricalData = (
   location: string, 
   hours: number = 24,
@@ -75,12 +75,12 @@ export const generateHistoricalData = (
   return data.sort((a, b) => a.timestamp - b.timestamp);
 };
 
-// Generate current data for rooms
+// Generate current data for zones
 export const generateCurrentRoomData = (): SensorData[] => {
   const timestamp = Date.now();
   return [
-    generateRandomSensorData("Room 1", timestamp),
-    generateRandomSensorData("Room 2", timestamp),
+    generateRandomSensorData("Zone 1", timestamp),
+    generateRandomSensorData("Zone 2", timestamp),
   ];
 };
 
